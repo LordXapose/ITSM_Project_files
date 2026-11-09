@@ -1,26 +1,6 @@
-# Django CRUD Management System
-
-A container-ready CRUD web application developed using **Python, Django and MariaDB** as part of the IT Security Management & DevOps re-examination assignment.
-
-The project focuses on rewriting an existing Node.js CRUD application in Django while preserving its original functionality and API behaviour.
-
----
-
 ## Project Overview
-
 This project demonstrates the development of a Django-based CRUD (Create, Read, Update, Delete) application backed by a MariaDB relational database.
-
 The application will subsequently be prepared for containerization and deployment using Docker, Docker Compose and Kubernetes (Minikube).
-
-### Objectives
-
-- Rewrite the original Node.js CRUD application using Django.
-- Preserve the original application's CRUD endpoints and behaviour.
-- Implement MariaDB database integration.
-- Develop a clean and functional web interface.
-- Implement application health monitoring through a dedicated health endpoint.
-- Prepare the application for containerized deployment.
-- Validate application functionality and performance.
 
 ## Technology Stack
 
@@ -91,9 +71,6 @@ crud-management-system/
 ├── .gitignore
 └── README.md
 ```
-
-*Note: This is the proposed structure. It will be updated as implementation progresses.*
-
 ## Local Development
 
 ### Prerequisites
@@ -204,12 +181,6 @@ The project will be developed in the following stages:
 9. Observability and fault-tolerance validation.
 10. Technical documentation and final report.
 
-## Repository Status
-
-**Current status:** Initial project documentation.
-
-Implementation, database configuration, testing and deployment will be documented as they are completed.
-
 ## Academic Context
 
 **Course:** IT Security Management & DevOps  
@@ -223,5 +194,3 @@ Implementation, database configuration, testing and deployment will be documente
 **Kaushal Patidar**
 
 ---
-
-*This project is developed for academic purposes as an individual university assignment.*
