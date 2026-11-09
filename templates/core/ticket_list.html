@@ -1,0 +1,100 @@
+﻿{% extends "core/base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">All Tickets</h2>
+            <p class="text-muted mb-0">View, search and manage IT support tickets.</p>
+        </div>
+
+        <a href="{% url 'create_ticket' %}" class="btn btn-primary">
+            + Create Ticket
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+
+            <form method="get" class="row g-2 mb-4">
+                <div class="col-md-10">
+                    <input
+                        type="text"
+                        name="q"
+                        value="{{ search_query }}"
+                        class="form-control"
+                        placeholder="Search tickets..."
+                    >
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-dark">Search</button>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for ticket in tickets %}
+                            <tr>
+                                <td>ITSM-{{ ticket.pk|stringformat:"06d" }}</td>
+                                <td class="fw-semibold">{{ ticket.title }}</td>
+                                <td>{{ ticket.category.name }}</td>
+                                <td>{{ ticket.get_priority_display }}</td>
+                                <td>{{ ticket.get_status_display }}</td>
+                                <td>{{ ticket.created_by.username }}</td>
+                                <td>{{ ticket.created_at|date:"d M Y, H:i" }}</td>
+                                <td>
+                                    <a href="{% url 'update_ticket' ticket.pk %}"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Edit
+                                    </a>
+
+                                    <a href="{% url 'delete_ticket' ticket.pk %}"
+                                       class="btn btn-sm btn-outline-danger">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-center text-muted py-4">
+                                    No tickets found.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-muted mb-0">
+                Total records: {{ tickets|length }}
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
