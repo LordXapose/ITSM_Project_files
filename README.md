@@ -1017,8 +1017,8 @@ Before committing, verify that `.env`, database credentials, local virtual envir
 | Original Node.js endpoint comparison | Pending |
 | Docker image build | Implemented |
 | Docker container runtime | Pending verification |
-| Docker Compose | Pending |
-| Kubernetes Deployment | Pending |
+| Docker Compose | Implemented |
+| Kubernetes Deployment | Implemented |
 | Kubernetes Service | Pending |
 | Minikube deployment | Pending |
 | Application health probes | Pending |
