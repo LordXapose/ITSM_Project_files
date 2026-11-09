@@ -1,304 +1,381 @@
 # ITSM Ticket Management System
 
-A web-based **IT Service Management (ITSM) Ticket Management System** built with Django, MariaDB, and Bootstrap. The application provides basic ticket lifecycle management through a browser-based interface.
+**A containerized IT Service Management application built with Django, MariaDB, Bootstrap, Docker, Docker Compose, and Kubernetes.**
 
-This project is being developed as part of the **IT Security Management & DevOps** course. The broader assignment covers application development, database integration, containerization, service orchestration, Kubernetes deployment, load testing, observability, and fault tolerance.
+![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-blue)
+![Django](https://img.shields.io/badge/Django-5.2.19-green)
+![MariaDB](https://img.shields.io/badge/Database-MariaDB-003545)
+![Bootstrap](https://img.shields.io/badge/Frontend-Bootstrap%205.3.3-purple)
+![Docker](https://img.shields.io/badge/Container-Docker-blue)
+![Kubernetes](https://img.shields.io/badge/Orchestration-Kubernetes-326CE5)
+![Status](https://img.shields.io/badge/Project-In%20Progress-orange)
 
 ---
 
 ## 1. Project Overview
 
-The application allows authenticated users to create, view, search, update, and delete IT support tickets.
+The **ITSM Ticket Management System** is a browser-based application designed to manage IT support tickets through a centralized interface.
 
-### Implemented features
+The application follows Django's Model-View-Template (MVT) architecture and uses MariaDB as its relational database. Bootstrap provides the frontend interface, while Docker and Kubernetes provide containerization and deployment capabilities.
 
-- User authentication using Django authentication.
-- Login-protected dashboard and ticket pages.
-- Create, read, update, and delete (CRUD) operations for tickets.
-- Ticket categorization.
-- Ticket priorities: Low, Medium, High, and Critical.
-- Ticket statuses: Open, In Progress, Pending, Resolved, and Closed.
-- Search tickets by title, description, and category.
-- Automatic ticket creation timestamps.
-- Django administration interface.
-- JSON health-check endpoint.
-- Responsive user interface using Bootstrap.
-- MariaDB database integration through Django ORM.
+The project is developed for the **IT Security Management & DevOps** course. Its scope includes application development, database integration, container orchestration, deployment validation, performance testing, observability, and fault-tolerance evaluation.
 
-### Project development status
+### Project Objectives
 
-| Component | Status |
+| Objective | Implementation |
 |---|---|
-| Django application | Implemented |
-| Ticket CRUD | Implemented and manually tested |
-| MariaDB integration | Implemented |
-| Login and authentication | Implemented |
-| Bootstrap interface | Implemented |
-| Django health endpoint | Implemented |
-| Docker image build and runtime | Requires verification |
-| Docker Compose | Pending |
-| Kubernetes and Minikube | Pending |
-| Load testing | Pending |
-| Observability and fault tolerance | Pending |
-| Final assignment report | Pending |
+| Web application development | Django MVT architecture |
+| Database integration | MariaDB and Django ORM |
+| Authentication | Django Authentication Framework |
+| Frontend development | HTML5, CSS3, Bootstrap |
+| Containerization | Docker multi-stage build |
+| Container orchestration | Docker Compose |
+| Infrastructure orchestration | Kubernetes |
+| Local cluster environment | Minikube |
+| Persistent storage | Kubernetes PersistentVolumeClaim |
+| Health monitoring | Django health endpoint and Kubernetes probes |
+| Performance evaluation | Load testing |
+| Fault tolerance | Kubernetes restart and recovery analysis |
 
-The original Node.js application's routes and behavior must still be compared against the Django implementation to confirm assignment compatibility.
+## 2. Implementation Status
 
----
-
-## 2. System Architecture
-
-### Application architecture
-
-The project follows Django's Model-View-Template (MVT) architecture.
-
-```text
-                    USER / WEB BROWSER
-                           |
-                           |
-                    HTTP Requests
-                           |
-                           v
-                 +-------------------+
-                 |    Django URLs    |
-                 |   URL Routing     |
-                 +-------------------+
-                           |
-                           v
-                 +-------------------+
-                 |    Django Views   |
-                 | Business Logic    |
-                 +-------------------+
-                      |         |
-                      |         |
-                      v         v
-              +-----------+  +-------------+
-              | Django    |  | Django      |
-              | Forms     |  | Templates   |
-              +-----------+  +-------------+
-                      |         |
-                      |         v
-                      |    Bootstrap UI
-                      |
-                      v
-              +-------------------+
-              |    Django ORM     |
-              +-------------------+
-                      |
-                      v
-              +-------------------+
-              |     MariaDB       |
-              |   itsm_db         |
-              +-------------------+
-```
-
-### Request lifecycle
-
-1. A user accesses the application through a web browser.
-2. Django URL routing identifies the requested endpoint.
-3. Authentication middleware and login decorators protect application pages.
-4. Django views process the request.
-5. Django forms validate user input.
-6. Django ORM communicates with MariaDB.
-7. Django templates render the response.
-8. Bootstrap provides the user interface.
-
-### Database architecture
-
-The application uses Django ORM with MariaDB as its relational database.
-
-The main application models are:
-
-| Model | Purpose |
-|---|---|
-| Category | Stores ticket categories |
-| Ticket | Stores ticket details, priority, status, and ownership |
-| Comment | Stores ticket comments in the database schema |
-| ActivityLog | Stores ticket activity records in the database schema |
-
-The current application interface focuses on ticket CRUD. Comment and ActivityLog models are retained in the existing database schema but are not part of the current user-facing feature scope.
-
-The Django authentication system also maintains its standard user, group, permission, and session tables.
-
----
-
-## 3. Technology Stack
-
-| Layer | Technology | Purpose |
+| Component | Status | Verification |
 |---|---|---|
-| Programming language | Python 3.11 (local development) | Application development |
-| Web framework | Django 5.2.19 | Backend and request handling |
-| Database | MariaDB 13.0.2 | Relational data storage |
-| Database driver | mysqlclient 2.3.0 | Django-to-MariaDB connection |
-| Frontend | HTML5 and CSS3 | Page structure and styling |
-| UI framework | Bootstrap 5.3.3 | Responsive interface |
-| Icons | Bootstrap Icons | Interface icons |
-| Templates | Django Template Language | Dynamic HTML rendering |
-| ORM | Django ORM | Database operations |
-| Authentication | Django Authentication | Login and session management |
-| Development server | Django runserver | Local development |
-| Container runtime | Docker | Planned application containerization |
-| Container orchestration | Docker Compose | Planned multi-container setup |
-| Container registry/image | Docker image | Application packaging |
-| Orchestration platform | Kubernetes | Planned deployment |
-| Local Kubernetes | Minikube | Planned local cluster |
-| Load testing | k6 (proposed) | Planned performance testing |
-| Version control | Git and GitHub | Source code management |
+| Django application | Implemented | Verified |
+| Authentication | Implemented | Verified |
+| Ticket CRUD | Implemented | Local verification completed |
+| Ticket search | Implemented | Verified |
+| MariaDB integration | Implemented | Connection verified |
+| Docker multi-stage image | Built | Build successful |
+| Gunicorn runtime | Implemented | Container execution verified |
+| Docker Compose | Implemented | Deployment successful |
+| Kubernetes namespace | Implemented | Applied |
+| Django Deployment | Implemented | 1/1 ready observed |
+| MariaDB StatefulSet | Implemented | 1/1 ready observed |
+| Kubernetes Services | Implemented | Applied |
+| PersistentVolumeClaim | Implemented | Bound observed |
+| Kubernetes health probes | Configured | HTTP 200 observed |
+| Kubernetes CRUD validation | Pending | Evidence required |
+| Node.js application comparison | Pending | Behavioural comparison required |
+| Load testing | Pending | Script and results required |
+| Fault-tolerance experiment | Pending | Controlled experiment required |
+| Final report | In progress | Evidence and analysis required |
 
-**Version distinction:** The current Windows development environment uses Python 3.11.9. The documented Docker build design uses Python 3.12 images. These are separate environments and should be validated independently.
+> **Note:** Implementation and verification are different. A successfully deployed application does not automatically demonstrate functional correctness, performance, or fault tolerance.
 
----
+## 3. Functional Specifications
 
-## 4. Requirements and Prerequisites
+### Application Features
 
-### Hardware
+| Feature | Description | Technology |
+|---|---|---|
+| Authentication | User login and logout | Django Auth |
+| Dashboard | Displays total and recent tickets | Django Views |
+| Ticket creation | Creates new support tickets | Django ModelForm |
+| Ticket listing | Displays stored tickets | Django ORM |
+| Ticket search | Searches by title, description, and category | Django QuerySet |
+| Ticket modification | Updates existing tickets | Django ModelForm |
+| Ticket deletion | Deletes tickets after confirmation | HTTP POST |
+| Categories | Classifies support tickets | MariaDB |
+| Priority | LOW, MEDIUM, HIGH, CRITICAL | Django Model Choices |
+| Status | OPEN, IN_PROGRESS, PENDING, RESOLVED, CLOSED | Django Model Choices |
+| Administration | Database administration interface | Django Admin |
+| Health endpoint | Returns application health information | JSON Response |
 
-Recommended development environment:
+### Application Endpoints
 
-- 8 GB RAM minimum; 16 GB or more recommended.
-- Dual-core processor or better.
-- At least 10 GB of available disk space.
-- Internet connection for downloading packages and container images.
+| Endpoint | HTTP Method | Purpose |
+|---|---|---|
+| `/` | GET | Dashboard |
+| `/login/` | GET, POST | User authentication |
+| `/logout/` | POST | User logout |
+| `/tickets/` | GET | List and search tickets |
+| `/tickets/create/` | GET, POST | Create ticket |
+| `/tickets/<id>/edit/` | GET, POST | Update ticket |
+| `/tickets/<id>/delete/` | GET, POST | Confirm and delete ticket |
+| `/admin/` | GET, POST | Django administration |
+| `/health/` | GET | Application health response |
 
-### Software
+All ticket-management views require authentication through Django's `login_required` decorator.
 
-| Software | Purpose |
+## 4. Technology Stack
+
+### Backend
+
+| Technology | Version | Purpose |
+|---|---|---|
+| Python | 3.11.9 | Local development runtime |
+| Python | 3.12.16 | Container runtime |
+| Django | 5.2.19 | Web application framework |
+| Gunicorn | 26.2.0 | WSGI application server |
+| mysqlclient | 2.3.0 | Database connectivity |
+| python-dotenv | Project dependency | Environment configuration |
+
+### Database and Frontend
+
+| Technology | Version | Purpose |
+|---|---|---|
+| MariaDB | 13.0.2 local | Local database |
+| MariaDB | 11.4 container | Container database |
+| Django ORM | Django 5.2 | Database abstraction |
+| HTML5 | Standard | Page structure |
+| CSS3 | Standard | Styling |
+| Bootstrap | 5.3.3 | Responsive interface |
+| JavaScript | Browser runtime | Client-side interaction |
+
+### Infrastructure and DevOps
+
+| Technology | Purpose |
 |---|---|
-| Windows 10/11 | Development operating system |
-| Python 3.11 | Django application |
-| MariaDB Server | Database |
-| Git | Version control |
-| Visual Studio Code | Code editor |
-| Docker Desktop | Container development |
-| kubectl | Kubernetes command-line client |
+| Docker | Container image construction |
+| Docker Compose | Multi-container deployment |
+| Kubernetes | Workload orchestration |
 | Minikube | Local Kubernetes cluster |
-| k6 | Load testing |
+| kubectl | Kubernetes administration |
+| PersistentVolumeClaim | Persistent database storage |
+| Kubernetes Secret | Database credential management |
+| k6 / approved alternative | Load testing |
 
-Docker, Kubernetes, Minikube, and k6 are required for the broader assignment workflow, but their implementation and validation remain separate from the completed Django application.
+## 5. System Architecture
 
----
+### 5.1 Docker Compose Architecture
 
-## 5. Installation Guide — Windows
+The Docker Compose deployment consists of two independent services connected through a private Docker network.
 
-### Step 1: Install Python
+```mermaid
+flowchart TD
+    A[Client Browser]
+    B[Django Web Container]
+    C[Gunicorn WSGI Server]
+    D[MariaDB Container]
+    E[Named Volume: mariadb_data]
 
-Download Python 3.11 from:
-
-https://www.python.org/downloads/
-
-During installation:
-
-- Enable **Add Python to PATH**.
-- Install Python for your Windows user or all users.
-
-Verify installation in PowerShell:
-
-```powershell
-python --version
-pip --version
+    A -->|HTTP :8000| B
+    B --> C
+    C -->|Database Connection| D
+    D --> E
 ```
 
-The development environment used for this project:
+**Request flow:**
 
-```text
-Python 3.11.9
+1. The browser sends an HTTP request to the Django container.
+2. Gunicorn receives the request and invokes the Django application.
+3. Django processes the request through its views, forms, and models.
+4. Django ORM communicates with MariaDB through the Docker network.
+5. MariaDB reads or updates the required records.
+6. Django returns the HTTP response to the client.
+
+### 5.2 Kubernetes Architecture
+
+The Kubernetes deployment separates application workloads, database workloads, networking, and persistent storage.
+
+```mermaid
+flowchart TD
+    A[Client Browser]
+    B[kubectl port-forward]
+    C[ClusterIP Service: itsm-web]
+    D[Django Deployment]
+    E[Django Pod]
+    F[MariaDB Service]
+    G[MariaDB StatefulSet]
+    H[MariaDB Pod]
+    I[PersistentVolumeClaim]
+
+    A -->|localhost:8001| B
+    B --> C
+    C --> D
+    D --> E
+    E -->|Database Port 3306| F
+    F --> G
+    G --> H
+    H --> I
 ```
 
-### Step 2: Install MariaDB
+### 5.3 Network Configuration
 
-Download MariaDB Community Server:
+| Component | Network / Port | Description |
+|---|---|---|
+| Django container | 8000 | Application port |
+| MariaDB container | 3306 | Database port |
+| Docker Compose web | Host 8000 | Browser access |
+| Kubernetes web Service | 8000 | Cluster-internal access |
+| Kubernetes port forwarding | Host 8001 | Local browser access |
+| MariaDB Service | 3306 | Cluster-internal database access |
 
-https://mariadb.org/download/
+The Kubernetes web Service uses `ClusterIP`. This exposes the application within the cluster without directly publishing it externally. `kubectl port-forward` provides local access for demonstration and testing.
 
-Install MariaDB Server using the Windows installer.
+## 6. Application Architecture
 
-During installation:
+The application follows Django's Model-View-Template (MVT) design pattern.
 
-1. Configure the root password.
-2. Keep the database service enabled.
-3. Use the default port `3306`, unless another service is already using it.
-4. Complete the installation.
+| Layer | Responsibility | Components |
+|---|---|---|
+| Presentation | User interface and form rendering | HTML, Bootstrap |
+| Routing | Maps HTTP requests to views | Django URL configuration |
+| Application logic | Request processing and validation | Django Views |
+| Validation | Input validation and form processing | Django ModelForms |
+| Data access | Database operations | Django ORM |
+| Persistence | Relational data storage | MariaDB |
 
-Verify the MariaDB Windows service:
+### Request Processing
 
-```powershell
-Get-Service MariaDB
+```mermaid
+flowchart TD
+    A[HTTP Request]
+    B[URL Dispatcher]
+    C[Authentication Check]
+    D[Django View]
+    E[Form Validation]
+    F[Django ORM]
+    G[MariaDB]
+    H[Template Rendering]
+    I[HTTP Response]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> F
+    F --> H
+    H --> I
 ```
 
-If the service is stopped, start it:
+## 7. Database Architecture
 
-```powershell
-Start-Service MariaDB
+MariaDB provides persistent relational storage. Django ORM manages database queries, model validation, and migration operations.
+
+### Main Entities
+
+| Entity | Responsibility |
+|---|---|
+| User | Stores application user accounts |
+| Category | Defines ticket classifications |
+| Ticket | Stores ticket details and lifecycle information |
+| Comment | Database model retained for possible future use |
+| ActivityLog | Database model retained for possible future use |
+
+The current user interface focuses on ticket CRUD and does not expose comment or activity-log functionality.
+
+### Ticket Relationships
+
+```mermaid
+erDiagram
+    USER ||--o{ TICKET : creates
+    USER o|--o{ TICKET : assigned_to
+    CATEGORY ||--o{ TICKET : categorizes
+
+    USER {
+        int id PK
+        string username
+        string email
+    }
+
+    CATEGORY {
+        int id PK
+        string name
+        boolean is_active
+    }
+
+    TICKET {
+        int id PK
+        string title
+        text description
+        string priority
+        string status
+        datetime created_at
+        datetime updated_at
+        datetime resolved_at
+        int category_id FK
+        int created_by_id FK
+        int assigned_to_id FK
+    }
 ```
 
-Verify the database client:
+> The diagram represents the principal ticket relationships. The exact deployed schema is defined by the Django models and applied migrations.
 
-```powershell
-& "C:\Program Files\MariaDB 13.0\bin\mariadb.exe" --version
+## 8. Configuration and Environment Variables
+
+### 8.1 Local Environment
+
+The application loads database settings from a local `.env` file using `python-dotenv`.
+
+Example configuration:
+
+```dotenv
+DB_NAME=itsm_db
+DB_USER=your_database_user
+DB_PASSWORD=your_database_password
+DB_HOST=localhost
+DB_PORT=3306
+MARIADB_ROOT_PASSWORD=your_local_root_password
 ```
 
-The exact executable path may differ depending on the installed MariaDB version.
+Replace the placeholder values with the credentials configured in your environment.
 
-### Step 3: Install Git
+### 8.2 Environment-Specific Database Hosts
 
-Download Git for Windows:
+| Environment | `DB_HOST` | `DB_PORT` |
+|---|---|---|
+| Local Windows | `localhost` | `3306` |
+| Docker Compose | `db` | `3306` |
+| Kubernetes | `mariadb` | `3306` |
 
-https://git-scm.com/downloads/win
+Containerized applications use service DNS names rather than `localhost` to communicate with other containers or Pods.
 
-Verify:
+### 8.3 Kubernetes Secrets
+
+The Kubernetes database Secret is named `itsm-db-secret` and belongs to namespace `itsm`.
+
+Database credentials are injected into the application environment through Kubernetes configuration.
+
+Never commit `.env` files, publish decoded Secret values, or include credentials in screenshots.
+
+### 8.4 Production Configuration Requirements
+
+Before treating the application as production-ready, configure:
+
+- A secret Django `SECRET_KEY`.
+- `DEBUG=False`.
+- Appropriate `ALLOWED_HOSTS`.
+- Secure cookie settings.
+- HTTPS and appropriate proxy settings.
+- Restricted database permissions.
+- Secure handling and rotation of credentials.
+
+The previously observed Django debug error page indicates that runtime hardening remains necessary.
+
+## 9. Local Development Setup
+
+### 9.1 Prerequisites
+
+| Software | Requirement |
+|---|---|
+| Windows | Windows 10/11 |
+| Python | 3.11.9 |
+| MariaDB | Local database service |
+| Git | Repository management |
+| Visual Studio Code | Recommended editor |
+| PowerShell | Command-line environment |
+
+### 9.2 Clone the Repository
 
 ```powershell
-git --version
-```
-
-### Step 4: Install Visual Studio Code
-
-Download:
-
-https://code.visualstudio.com/
-
-Recommended extensions:
-
-- Python
-- Django
-- Python Debugger
-- GitLens
-
-These extensions are optional but useful for development.
-
-### Step 5: Clone the repository
-
-Open PowerShell and run:
-
-```powershell
-cd $HOME\Desktop
-
 git clone https://github.com/LordXapose/ITSM_Project_files.git
 
 cd ITSM_Project_files
 ```
 
-### Step 6: Create a Python virtual environment
+### 9.3 Create a Virtual Environment
 
 ```powershell
 python -m venv .venv
-```
 
-Activate it:
-
-```powershell
 .\.venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks activation, use the following command for the current terminal session only:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-```
-
-Then activate the environment again.
-
-### Step 7: Install Python dependencies
+### 9.4 Install Dependencies
 
 ```powershell
 python -m pip install --upgrade pip
@@ -306,173 +383,272 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-The project dependencies include Django, mysqlclient, and the environment configuration package.
+### 9.5 Configure the Database
 
----
+Create the MariaDB database and database user according to your local configuration.
 
-## 6. Database Configuration
+Configure the `.env` file in the project root.
 
-### Step 1: Create the database
+Verify the database configuration before running migrations.
 
-Open the MariaDB client:
-
-```powershell
-& "C:\Program Files\MariaDB 13.0\bin\mariadb.exe" -u root -p
-```
-
-Enter the MariaDB root password.
-
-Create the application database:
-
-```sql
-CREATE DATABASE itsm_db
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
-```
-
-Create a dedicated database user:
-
-```sql
-CREATE USER 'itsm_user'@'localhost'
-IDENTIFIED BY 'CHANGE_THIS_PASSWORD';
-
-GRANT ALL PRIVILEGES ON itsm_db.*
-TO 'itsm_user'@'localhost';
-
-FLUSH PRIVILEGES;
-```
-
-Use a strong password of your own choosing.
-
-Exit:
-
-```sql
-EXIT;
-```
-
-### Step 2: Configure environment variables
-
-Create a file named `.env` in the project root.
-
-The file should contain:
-
-```env
-DB_NAME=itsm_db
-DB_USER=itsm_user
-DB_PASSWORD=CHANGE_THIS_PASSWORD
-DB_HOST=localhost
-DB_PORT=3306
-```
-
-Replace the placeholder password with the password configured in MariaDB.
-
-**Security requirements:**
-
-- Never commit `.env` to GitHub.
-- Never put database passwords in source code.
-- Do not include `.env` in a Docker image.
-- Use runtime environment variables or an appropriate secrets mechanism for deployment.
-
-### Step 3: Verify database connectivity
-
-Activate the virtual environment and run:
+### 9.6 Apply Migrations
 
 ```powershell
-python manage.py check
-```
-
-Test the database connection:
-
-```powershell
-python manage.py shell -c "from django.db import connection; connection.ensure_connection(); print('Database:', connection.vendor)"
-```
-
-Expected output:
-
-```text
-Database: mysql
-```
-
----
-
-## 7. Database Migration and Application Setup
-
-Django migrations create and update the database schema.
-
-Run:
-
-```powershell
-python manage.py makemigrations
 python manage.py migrate
 ```
 
-Check migration status:
-
-```powershell
-python manage.py showmigrations
-```
-
-Check application configuration:
-
-```powershell
-python manage.py check
-```
-
-Create an administrator account:
+### 9.7 Create an Administrator
 
 ```powershell
 python manage.py createsuperuser
 ```
 
-Follow the prompts to configure the username, email, and password.
-
-The administrator can access the Django administration interface at:
-
-```text
-http://127.0.0.1:8000/admin/
-```
-
-Ticket categories can be managed through the Django administration interface.
-
----
-
-## 8. Running the Application
-
-Start the local development server:
+### 9.8 Start the Development Server
 
 ```powershell
 python manage.py runserver
 ```
 
-Open the application:
+Open:
 
-http://127.0.0.1:8000/
+- Application: http://127.0.0.1:8000/
+- Administration: http://127.0.0.1:8000/admin/
+- Health endpoint: http://127.0.0.1:8000/health/
 
-### Application URLs
+The Django development server is intended for local development. The containerized deployment uses Gunicorn.
 
-| URL | Method | Description |
+## 10. Docker Image Build
+
+### 10.1 Image Design
+
+The application uses a multi-stage Docker build.
+
+| Stage | Base image | Responsibility |
 |---|---|---|
-| `/` | GET | Dashboard |
-| `/login/` | GET, POST | User login |
-| `/logout/` | POST | User logout |
-| `/tickets/` | GET | Ticket listing and search |
-| `/tickets/create/` | GET, POST | Create ticket |
-| `/tickets/<id>/edit/` | GET, POST | Update ticket |
-| `/tickets/<id>/delete/` | GET, POST | Delete confirmation and deletion |
-| `/admin/` | GET and POST | Django administration |
-| `/health/` | GET | Application health endpoint |
+| Build | `python:3.12-bookworm` | Dependency installation and build preparation |
+| Runtime | `python:3.12-slim-bookworm` | Application execution |
 
-Ticket pages require authentication.
+The runtime image uses Gunicorn and a non-root `app` user.
 
-### Health endpoint
+### 10.2 Build the Image
 
-The application exposes a simple health-check endpoint:
+Run from the project root:
 
-```text
-http://127.0.0.1:8000/health/
+```powershell
+docker build -t itsm-app:dev .
 ```
 
-Example response:
+### 10.3 Verify the Image
+
+```powershell
+docker images itsm-app
+```
+
+Inspect image configuration:
+
+```powershell
+docker image inspect itsm-app:dev
+```
+
+The image has been built successfully and used by Docker Compose and Minikube.
+
+## 11. Docker Compose Deployment
+
+### 11.1 Start Services
+
+```powershell
+docker compose -f docker-compose.yaml up --build -d
+```
+
+### 11.2 Validate Compose Configuration
+
+```powershell
+docker compose -f docker-compose.yaml config --quiet
+```
+
+### 11.3 Check Container Status
+
+```powershell
+docker compose -f docker-compose.yaml ps
+```
+
+### 11.4 Inspect Logs
+
+```powershell
+docker compose -f docker-compose.yaml logs --tail=100
+```
+
+For application-specific logs:
+
+```powershell
+docker compose -f docker-compose.yaml logs web
+```
+
+For database-specific logs:
+
+```powershell
+docker compose -f docker-compose.yaml logs db
+```
+
+### 11.5 Apply Database Migrations
+
+```powershell
+docker compose -f docker-compose.yaml exec web python manage.py migrate
+```
+
+### 11.6 Create an Administrator
+
+```powershell
+docker compose -f docker-compose.yaml exec web python manage.py createsuperuser
+```
+
+### 11.7 Access the Application
+
+http://localhost:8000/
+
+### 11.8 Stop Services
+
+```powershell
+docker compose -f docker-compose.yaml down
+```
+
+This stops and removes the containers while retaining the named database volume.
+
+**Warning:** Do not use `docker compose down -v` unless you intentionally want to remove the associated persistent volumes and database data.
+
+## 12. Kubernetes Deployment
+
+### 12.1 Cluster Configuration
+
+The local Kubernetes environment uses Minikube with a dedicated profile.
+
+| Configuration | Value |
+|---|---|
+| Profile | `itsm` |
+| Namespace | `itsm` |
+| Application image | `itsm-app:dev` |
+| Application Deployment | `itsm-web` |
+| Application Service | `itsm-web` |
+| Database StatefulSet | `mariadb` |
+| Database Service | `mariadb` |
+| Database Secret | `itsm-db-secret` |
+| Application Service type | ClusterIP |
+
+### 12.2 Check Minikube
+
+```powershell
+minikube status -p itsm
+```
+
+Check the Kubernetes node:
+
+```powershell
+kubectl --context=itsm get nodes
+```
+
+### 12.3 Load the Application Image
+
+```powershell
+minikube image load -p itsm itsm-app:dev
+```
+
+This makes the locally built application image available to the Minikube cluster.
+
+### 12.4 Create or Update the Database Secret
+
+Run from the project root:
+
+```powershell
+kubectl --context=itsm create secret generic itsm-db-secret `
+  --namespace=itsm `
+  --from-env-file=.env `
+  --dry-run=client -o yaml |
+  kubectl --context=itsm apply -f -
+```
+
+This command creates or updates the Kubernetes Secret without printing its decoded values.
+
+### 12.5 Apply Kubernetes Manifests
+
+```powershell
+kubectl --context=itsm apply -f .\k8s\
+```
+
+### 12.6 Apply Database Migrations
+
+```powershell
+kubectl --context=itsm -n itsm exec deployment/itsm-web -- python manage.py migrate
+```
+
+### 12.7 Create an Administrator
+
+```powershell
+kubectl --context=itsm -n itsm exec -it deployment/itsm-web -- python manage.py createsuperuser
+```
+
+Each deployment environment has its own database. Therefore, an administrator created in the local environment or Docker Compose environment is not automatically available in Kubernetes.
+
+### 12.8 Inspect Kubernetes Resources
+
+Pods:
+
+```powershell
+kubectl --context=itsm -n itsm get pods
+```
+
+Deployments:
+
+```powershell
+kubectl --context=itsm -n itsm get deployments
+```
+
+StatefulSets:
+
+```powershell
+kubectl --context=itsm -n itsm get statefulsets
+```
+
+Services:
+
+```powershell
+kubectl --context=itsm -n itsm get services
+```
+
+Persistent storage:
+
+```powershell
+kubectl --context=itsm -n itsm get pvc
+```
+
+### 12.9 Access the Application
+
+The application Service uses `ClusterIP`, so it is accessible internally within the cluster.
+
+For local browser access, use port forwarding.
+
+Run the following command in a separate PowerShell window and leave it running:
+
+```powershell
+kubectl --context=itsm -n itsm port-forward service/itsm-web 8001:8000
+```
+
+Open:
+
+http://localhost:8001/
+
+Port 8001 is used because host port 8000 is already occupied by another application environment.
+
+## 13. Application Health and Validation
+
+### 13.1 Health Endpoint
+
+The Django application exposes:
+
+```text
+GET /health/
+```
+
+Expected response:
 
 ```json
 {
@@ -481,11 +657,229 @@ Example response:
 }
 ```
 
-This endpoint is intended to support basic application availability checks and future container orchestration probes. It does not independently verify MariaDB connectivity.
+### 13.2 Validate Kubernetes Health
 
----
+```powershell
+Invoke-WebRequest http://localhost:8001/health/ -UseBasicParsing
+```
 
-## 9. Repository Structure
+The observed Kubernetes response was HTTP 200 with a healthy JSON status.
+
+### 13.3 Kubernetes Probes
+
+The web Deployment configures Kubernetes readiness and liveness probes against `/health/`.
+
+| Probe | Purpose |
+|---|---|
+| Readiness probe | Determines whether the container is ready to receive traffic |
+| Liveness probe | Determines whether the container should be restarted |
+| Health endpoint | Returns application health information |
+
+**Limitation:** The current endpoint reports application-level health only. It does not independently verify database connectivity. Therefore, an HTTP 200 response should not be interpreted as proof that all application dependencies are operational.
+
+### 13.4 Local Django Validation
+
+Run:
+
+```powershell
+python manage.py check
+```
+
+Expected result:
+
+```text
+System check identified no issues (0 silenced).
+```
+
+Check migration consistency:
+
+```powershell
+python manage.py makemigrations --check --dry-run
+```
+
+Expected result:
+
+```text
+No changes detected
+```
+
+Apply pending migrations:
+
+```powershell
+python manage.py migrate
+```
+
+### 13.5 Required Functional Evidence
+
+For final submission, collect evidence of:
+
+- Successful application login.
+- Ticket creation.
+- Ticket listing and search.
+- Ticket modification.
+- Ticket deletion.
+- Successful Django administration access.
+- Successful Kubernetes application access.
+- Successful Kubernetes health check.
+
+Kubernetes CRUD verification must be recorded separately from local development verification.
+
+## 14. Load Testing
+
+**Status: Pending**
+
+Load testing will evaluate application responsiveness and resource consumption under controlled concurrent workloads.
+
+The selected testing tool should follow the course requirements. Candidate tools include k6, Locust, Apache JMeter, and `hey`.
+
+### 14.1 Proposed Test Parameters
+
+| Parameter | Description |
+|---|---|
+| Target | Docker Compose or Kubernetes deployment |
+| Request type | HTTP GET and approved application workflows |
+| Virtual users | Defined according to assignment requirements |
+| Test duration | Defined according to assignment requirements |
+| Ramp-up | Gradual increase in concurrent load |
+| Performance metrics | Latency, throughput, and error rate |
+| Infrastructure metrics | CPU and memory consumption |
+
+### 14.2 Required Performance Metrics
+
+| Metric | Description |
+|---|---|
+| p50 latency | Median request response time |
+| p90 latency | 90th percentile response time |
+| p95 latency | 95th percentile response time |
+| p99 latency | 99th percentile response time |
+| Throughput | Requests processed per second |
+| Error rate | Percentage of failed requests |
+| CPU utilization | Application and database CPU consumption |
+| Memory utilization | Application and database memory consumption |
+
+### 14.3 Results
+
+The following table should be populated after execution.
+
+| Metric | Test result |
+|---|---|
+| Total requests | Pending |
+| Successful requests | Pending |
+| Failed requests | Pending |
+| p50 latency | Pending |
+| p90 latency | Pending |
+| p95 latency | Pending |
+| p99 latency | Pending |
+| Throughput | Pending |
+| Peak CPU usage | Pending |
+| Peak memory usage | Pending |
+
+### 14.4 Repository Location
+
+Proposed structure:
+
+```text
+loadtest/
+└── k6-script.js
+```
+
+No performance target should be reported as achieved until supported by actual measurements.
+
+## 15. Observability and Fault Tolerance
+
+**Status: Pending**
+
+This section evaluates how the application behaves when a container or Pod fails and whether Kubernetes restores the expected workload.
+
+### 15.1 Monitoring Commands
+
+Inspect Pod status:
+
+```powershell
+kubectl --context=itsm -n itsm get pods
+```
+
+Inspect events:
+
+```powershell
+kubectl --context=itsm -n itsm get events --sort-by=.lastTimestamp
+```
+
+Inspect application logs:
+
+```powershell
+kubectl --context=itsm -n itsm logs deployment/itsm-web --tail=100
+```
+
+Inspect resource utilization:
+
+```powershell
+kubectl --context=itsm -n itsm top pods
+```
+
+If resource metrics are unavailable, the Minikube metrics components may need to be enabled and allowed to initialize.
+
+### 15.2 Fault-Tolerance Experiment
+
+The controlled experiment should document the following sequence:
+
+| Step | Observation | Required evidence |
+|---|---|---|
+| 1 | Initial Pod state | Pod status and restart count |
+| 2 | Controlled application container failure | Failure event or command output |
+| 3 | Kubernetes detects failure | Restart count increases |
+| 4 | Container recovery | Pod becomes ready again |
+| 5 | Application recovery | Health endpoint returns HTTP 200 |
+
+A previous Pod restart was observed, but it has not yet been documented as a controlled failure-and-recovery experiment.
+
+### 15.3 Resource Management and Scaling
+
+No Horizontal Pod Autoscaler (HPA) is currently configured.
+
+Any proposed scaling strategy should consider:
+
+- CPU and memory requests.
+- CPU and memory limits.
+- Measured application resource consumption.
+- Load-test results.
+- Database connection capacity.
+- Application replica count.
+
+An HPA threshold should be justified using measured results rather than an arbitrary percentage.
+
+### 15.4 Known Limitations
+
+The Minikube deployment uses a local single-node cluster. Consequently, it does not demonstrate high availability across independent worker nodes or production-grade infrastructure resilience.
+
+A successful container restart also does not prove database fault tolerance or data recovery. Those require separate tests.
+
+## 16. Security Considerations
+
+| Area | Current implementation or requirement |
+|---|---|
+| Authentication | Django authentication framework |
+| Password management | Django authentication mechanisms |
+| CSRF protection | Django form protection |
+| Database credentials | Environment variables |
+| Kubernetes credentials | Kubernetes Secret |
+| Container privileges | Non-root runtime user |
+| Debug mode | Must be disabled for production |
+| Secret key | Must be securely configured |
+| Allowed hosts | Must be explicitly configured |
+| Database permissions | Should follow least privilege |
+| Persistent data | Docker volume and Kubernetes PVC |
+
+### Security Limitations
+
+- Development settings previously exposed Django debug details.
+- Production-grade secret management has not yet been established.
+- The current health endpoint does not test database connectivity.
+- Minikube is a local demonstration environment, not a production security boundary.
+- Database credentials must never be committed to Git.
+- Public screenshots must not expose credentials, Secret values, or administrator passwords.
+
+## 17. Repository Structure
 
 ```text
 ITSM_Project_files/
@@ -499,7 +893,6 @@ ITSM_Project_files/
 │
 ├── core/
 │   ├── migrations/
-│   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
 │   ├── forms.py
@@ -513,518 +906,140 @@ ITSM_Project_files/
 │       ├── base.html
 │       ├── dashboard.html
 │       ├── login.html
-│       ├── ticket_confirm_delete.html
 │       ├── ticket_form.html
 │       ├── ticket_list.html
-│       └── ticket_update.html
+│       ├── ticket_update.html
+│       └── ticket_confirm_delete.html
 │
 ├── static/
 │   ├── css/
 │   └── js/
 │
+├── k8s/
+│   ├── deployment.yaml
+│   ├── mariadb.yaml
+│   ├── namespace.yaml
+│   └── service.yaml
+│
+├── loadtest/
+│   └── k6-script.js
+│
+├── .dockerignore
 ├── .gitignore
-├── .env                 # Local only; not committed
+├── Dockerfile
+├── docker-compose.yaml
 ├── manage.py
 ├── README.md
 └── requirements.txt
 ```
 
-The structure above describes the Django application. Add Docker, Compose, Kubernetes, and load-testing files only when those assignment stages are completed and verified.
+The `loadtest/` directory is a planned location until the test script has actually been created.
 
----
+Local environment files, virtual environments, database files, caches, and machine-specific files should be excluded from version control.
 
-## 10. Application Testing
+## 18. Troubleshooting
 
-### Django system checks
+| Problem | Possible cause | Recommended check |
+|---|---|---|
+| Django database connection error | Incorrect credentials or database host | Inspect `.env` and database service |
+| MariaDB connection refused | Database service not running | Check MariaDB service status |
+| Django migration error | Database unavailable or inconsistent migrations | Run `migrate` and inspect errors |
+| HTTP 404 | Incorrect URL configuration | Inspect Django URL patterns |
+| HTTP 403 | CSRF or permission issue | Check request method and CSRF token |
+| Docker build failure | Dependency or build configuration issue | Inspect Docker build logs |
+| Compose web container exits | Application configuration or database issue | Inspect `docker compose logs web` |
+| Kubernetes Pod pending | Scheduling or resource issue | Inspect Pod description and events |
+| Kubernetes image pull error | Image unavailable to Minikube | Run `minikube image load` |
+| Kubernetes database connection failure | Incorrect Service DNS or credentials | Check Secret references and MariaDB Service |
+| Kubernetes PVC pending | Storage provisioning issue | Inspect PVC and storage class |
+| `kubectl top` unavailable | Metrics API unavailable | Check Minikube metrics components |
 
-```powershell
-python manage.py check
-```
+## 19. Git and GitHub Workflow
 
-### Migration consistency
-
-```powershell
-python manage.py makemigrations --check --dry-run
-```
-
-### Database migration status
-
-```powershell
-python manage.py migrate
-```
-
-### Manual functional tests
-
-| Test | Expected result |
-|---|---|
-| Login with valid credentials | User can access the dashboard |
-| Access ticket pages without login | Redirected to login |
-| Create a ticket | Ticket is stored in MariaDB |
-| View tickets | Existing tickets are displayed |
-| Search for a ticket | Matching tickets are displayed |
-| Update a ticket | Updated details are saved |
-| Delete a ticket | Confirmation is required before deletion |
-| Access `/health/` | JSON health response is returned |
-
-Manual CRUD operations have been tested during development. Automated acceptance testing and full endpoint parity testing against the original Node.js application remain to be completed.
-
----
-
-## 11. Containerization — Docker
-
-Docker is intended to package the Django application and its runtime dependencies into a portable image.
-
-The planned container architecture is:
-
-```text
-             Docker Host
-                  |
-          +-------+-------+
-          |               |
-          v               v
-     Django Web        MariaDB
-     Container         Container
-          |               |
-          |               v
-          |          Persistent
-          |          Data Volume
-          |
-          v
-      Port 8000
-          |
-          v
-      Web Browser
-```
-
-### Required tooling
-
-Install Docker Desktop:
-
-https://www.docker.com/products/docker-desktop/
-
-For Windows:
-
-1. Download Docker Desktop.
-2. Follow the installation instructions.
-3. Enable the WSL 2 backend if required by your system.
-4. Start Docker Desktop.
-5. Confirm that the Linux container engine is running.
-
-Verify:
+### 19.1 Inspect Repository Changes
 
 ```powershell
-docker --version
-docker compose version
-docker info
+git status
+
+git diff --check
+
+git diff
 ```
 
-### Planned container requirements
+### 19.2 Stage Project Files
 
-The containerization stage must account for:
-
-- Multi-stage image construction.
-- A suitable Python runtime image.
-- Installation of Python dependencies.
-- Gunicorn as the application server.
-- A non-root runtime user.
-- Environment-based application configuration.
-- Database connectivity.
-- Health-check support.
-- Exclusion of secrets and local development files from the build context.
-
-The current Dockerfile design uses Python 3.12 images. Gunicorn must be present in the Python dependencies before the configured runtime command can work.
-
-### Deployment configuration requirements
-
-Before running the application in a production-like container, configure:
-
-- `SECRET_KEY` through the environment.
-- `DEBUG=False`.
-- Appropriate `ALLOWED_HOSTS`.
-- Database connection variables.
-- Runtime secrets.
-- Database migration execution.
-
-The Django development server should not be used as the production container server.
-
-**Status:** Docker Desktop is installed and running. The Docker image build and container runtime still require verification.
-
----
-
-## 12. Docker Compose — Planned
-
-Docker Compose will coordinate the Django and MariaDB services.
-
-The planned architecture contains:
-
-| Component | Responsibility |
-|---|---|
-| Django service | Runs the web application |
-| MariaDB service | Stores application data |
-| Named volume | Persists MariaDB data |
-| Network | Enables communication between services |
-| Health checks | Monitor service readiness |
-| Environment configuration | Supplies application and database settings |
-
-The Django application must use the database service name as its database host when both services run on the Compose network.
-
-The Compose stage must validate:
-
-- Database readiness before application startup.
-- Application health.
-- Database persistence across container restarts.
-- Correct migration execution.
-- Login and ticket CRUD through the containerized application.
-
-**Status:** Pending implementation and validation.
-
----
-
-## 13. Kubernetes and Minikube — Planned
-
-Kubernetes will be used to deploy and manage the application containers.
-
-Minikube provides a local Kubernetes cluster for development and demonstration.
-
-### Required tools
-
-Install `kubectl`:
-
-https://kubernetes.io/docs/tasks/tools/
-
-Install Minikube:
-
-https://minikube.sigs.k8s.io/docs/start/
-
-Verify installations:
+Stage relevant files explicitly:
 
 ```powershell
-kubectl version --client
-minikube version
+git add README.md Dockerfile .dockerignore docker-compose.yaml k8s config core templates static requirements.txt
 ```
 
-Start the local cluster:
+Stage the load-test directory only after the script has been created:
 
 ```powershell
-minikube start
+git add loadtest/
 ```
 
-Verify:
-
-```powershell
-kubectl cluster-info
-kubectl get nodes
-```
-
-### Planned Kubernetes architecture
-
-```text
-                 Minikube Cluster
-                        |
-                        v
-                   Kubernetes
-                     Service
-                        |
-                        v
-                 Django Deployment
-                        |
-                 +------+------+
-                 |             |
-                 v             v
-              Django Pod    Django Pod
-                 |
-                 v
-              MariaDB
-                 |
-                 v
-           Persistent Storage
-```
-
-The final database placement and persistence design must be selected before deployment. The Django pods need a reliable route to MariaDB.
-
-### Deployment requirements
-
-The Kubernetes stage must address:
-
-- Namespace configuration.
-- Deployment and matching pod labels.
-- Replica configuration.
-- CPU and memory requests.
-- CPU and memory limits.
-- Readiness probes.
-- Liveness probes.
-- Service exposure.
-- Database connectivity.
-- Persistent storage.
-- Application configuration and secrets.
-
-The health endpoint `/health/` can be used for HTTP health probes, subject to testing.
-
-### Deployment verification
-
-The assignment evidence should include:
-
-```powershell
-kubectl get pods
-kubectl get services
-kubectl get deployments
-kubectl get events
-```
-
-Application logs should also be collected during verification.
-
-**Status:** Minikube deployment and Kubernetes manifests remain pending.
-
----
-
-## 14. Load Testing — Planned
-
-Load testing will measure the application's behavior under concurrent requests.
-
-**Proposed tool:** k6.
-
-Install instructions:
-
-https://grafana.com/docs/k6/latest/set-up/install-k6/
-
-Verify:
-
-```powershell
-k6 version
-```
-
-### Assignment load-testing requirements
-
-The planned test must meet the assignment's stated requirement of at least:
-
-- 500 concurrent virtual users or requests, according to the assignment's exact interpretation.
-- 60 seconds of sustained testing.
-
-The test plan should define:
-
-1. Target application URL.
-2. Test scenario and HTTP endpoints.
-3. Virtual user configuration.
-4. Test duration.
-5. Test account and data strategy.
-6. Expected behavior and failure conditions.
-
-### Measurements to collect
-
-| Metric | Description |
-|---|---|
-| Average response time | Mean request latency |
-| p50 latency | Median response time |
-| p90 latency | 90th percentile response time |
-| p95 latency | 95th percentile response time |
-| p99 latency | 99th percentile response time |
-| Error rate | Percentage of failed requests |
-| Throughput | Requests per second |
-| CPU usage | Application pod CPU consumption |
-| Memory usage | Application pod memory consumption |
-
-The final report should explain bottlenecks, resource utilization, test limitations, and whether the load generator or Minikube host became a limiting factor.
-
-Do not claim that the concurrency or performance requirement has been achieved until the test results demonstrate it.
-
-**Status:** Pending.
-
----
-
-## 15. Observability and Fault Tolerance — Planned
-
-The observability stage will collect information about application health and resource consumption.
-
-### Observability evidence
-
-- Kubernetes pod status.
-- Application logs.
-- Kubernetes events.
-- CPU utilization.
-- Memory utilization.
-- Health probe results.
-- Restart counts.
-
-### Fault-tolerance demonstration
-
-A controlled failure should be introduced to demonstrate that Kubernetes can recover an application container.
-
-Evidence should include:
-
-- The initial pod status.
-- The controlled failure.
-- The container restart.
-- The resulting restart count.
-- Application recovery.
-- Successful health checks after recovery.
-
-A deleted pod being recreated by a Deployment is not the same as a container restart within the same pod. The demonstration should match the exact evidence required by the course.
-
-If Horizontal Pod Autoscaling is included, document the selected metric, threshold, and rationale.
-
-**Status:** Pending.
-
----
-
-## 16. Security Considerations
-
-Security measures relevant to the application include:
-
-- Django authentication.
-- Login protection for ticket views.
-- CSRF protection on POST forms.
-- Django ORM parameterized database operations.
-- Environment-based database configuration.
-- Separation of local development secrets from source control.
-- Database access through a dedicated application user.
-- Confirmation before destructive ticket deletion.
-
-Additional deployment security work includes:
-
-- Production `SECRET_KEY` management.
-- Disabling debug mode.
-- Restricting allowed hosts.
-- Running the container as a non-root user.
-- Using appropriate Kubernetes Secrets.
-- Restricting network access.
-- Avoiding credentials in Git history and container images.
-
-This is a course project, not a production security certification. Security controls must be tested rather than assumed.
-
----
-
-## 17. Troubleshooting
-
-### MariaDB service is not running
-
-Check:
-
-```powershell
-Get-Service MariaDB
-```
-
-Start:
-
-```powershell
-Start-Service MariaDB
-```
-
-### Django cannot connect to MariaDB
-
-Check:
-
-- MariaDB service status.
-- Database name.
-- Database username.
-- Database password.
-- Host and port.
-- `.env` file location.
-- Database user privileges.
-
-### Python dependency installation fails
-
-Confirm that the virtual environment is activated:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-Upgrade pip:
-
-```powershell
-python -m pip install --upgrade pip
-```
-
-Reinstall dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-### Port 8000 is already in use
-
-Start Django on another port:
-
-```powershell
-python manage.py runserver 8001
-```
-
-### Database migrations are pending
-
-Run:
-
-```powershell
-python manage.py makemigrations
-python manage.py migrate
-```
-
-Do not delete migration files or reset the database to resolve an ordinary migration error.
-
----
-
-## 18. Version Control
-
-The project is maintained using Git and GitHub.
-
-Repository:
-
-https://github.com/LordXapose/ITSM_Project_files
-
-Check working-tree status:
+Verify staged changes:
 
 ```powershell
 git status
 ```
 
-Review changes:
+Never stage `.env`, virtual environments, database files, or credentials.
+
+### 19.3 Commit and Push
 
 ```powershell
-git diff
-git diff --check
-```
+git commit -m "Update ITSM deployment documentation"
 
-Stage application files:
-
-```powershell
-git add config core templates static requirements.txt README.md
-```
-
-Commit:
-
-```powershell
-git commit -m "Update ITSM Django application and documentation"
-```
-
-Push:
-
-```powershell
 git push origin main
 ```
 
-Before committing, verify that `.env`, database credentials, local virtual environments, and other sensitive files are excluded.
+Repository:
+
+https://github.com/LordXapose/ITSM_Project_files
+
+## 20. Assignment Completion Matrix
+
+| Deliverable | Current state | Remaining work |
+|---|---|---|
+| 1. Containerization and setup | Docker image and Compose deployed | Verify original Node.js functionality and Django parity; harden runtime settings |
+| 2. Kubernetes deployment | Minikube deployment operational | Record CRUD evidence and deployment validation |
+| 3. Functional validation and load testing | Partially completed | Commit test script, execute load tests, analyse performance |
+| 4. Observability and fault tolerance | Not completed | Conduct controlled failure-and-recovery experiment; analyse resource behaviour |
+| 5. Report and GitHub structure | Documentation in progress | Add evidence, measured results, and technical reflection |
+
+### Final Submission Requirements
+
+Before submission, ensure that the repository and report contain:
+
+- [ ] Complete Django application source code.
+- [ ] Database models and migrations.
+- [ ] Dockerfile and Docker Compose configuration.
+- [ ] Kubernetes manifests.
+- [ ] Successful deployment evidence.
+- [ ] Kubernetes CRUD verification.
+- [ ] Comparison against the original Node.js application.
+- [ ] Load-testing scripts and results.
+- [ ] Performance metrics and resource observations.
+- [ ] Controlled fault-tolerance experiment.
+- [ ] Observability evidence.
+- [ ] Security considerations and limitations.
+- [ ] Final technical report and reflection.
 
 ---
 
-## 19. Assignment Completion Checklist
+## Project Information
 
-| Deliverable | Status |
+| Field | Details |
 |---|---|
-| Django application | Implemented |
-| Database integration | Implemented |
-| CRUD functionality | Implemented and manually tested |
-| Authentication | Implemented |
-| Bootstrap interface | Implemented |
-| Original Node.js endpoint comparison | Pending |
-| Docker image build | Implemented |
-| Docker container runtime | Pending verification |
-| Docker Compose | Implemented |
-| Kubernetes Deployment | Implemented |
-| Kubernetes Service | Implemented |
-| Minikube deployment | Implemented |
-| Application health probes | Pending |
-| Load testing | Pending |
-| CPU and memory measurements | Pending |
-| Fault-tolerance demonstration | Pending |
-| Final report and evidence | Pending |
-
----
+| Project | ITSM Ticket Management System |
+| Course | IT Security Management & DevOps |
+| Backend | Django |
+| Database | MariaDB |
+| Frontend | Bootstrap |
+| Containerization | Docker |
+| Orchestration | Docker Compose and Kubernetes |
+| Local cluster | Minikube |
+| Repository | [LordXapose/ITSM_Project_files](https://github.com/LordXapose/ITSM_Project_files) |
