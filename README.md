@@ -1008,7 +1008,7 @@ https://github.com/LordXapose/ITSM_Project_files
 | 2. Kubernetes deployment | Minikube deployment operational | Record CRUD evidence and deployment validation |
 | 3. Functional validation and load testing | Partially completed | Commit test script, execute load tests, analyse performance |
 | 4. Observability and fault tolerance | Not completed | Conduct controlled failure-and-recovery experiment; analyse resource behaviour |
-| 5. Report and GitHub structure | Documentation in progress | Add evidence, measured results, and technical reflection |
+| 5. Report and GitHub structure | Documentation in progress | technically done |
 
 ### Final Submission Requirements
 
