@@ -1020,7 +1020,7 @@ Before committing, verify that `.env`, database credentials, local virtual envir
 | Docker Compose | Implemented |
 | Kubernetes Deployment | Implemented |
 | Kubernetes Service | Implemented |
-| Minikube deployment | Pending |
+| Minikube deployment | Implemented |
 | Application health probes | Pending |
 | Load testing | Pending |
 | CPU and memory measurements | Pending |
