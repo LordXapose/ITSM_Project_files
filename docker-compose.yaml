@@ -1,0 +1,56 @@
+services:
+  web:
+    build:
+      context: .
+    image: itsm-app:dev
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DB_NAME: "${DB_NAME:?Add DB_NAME to .env}"
+      DB_USER: "${DB_USER:?Add DB_USER to .env}"
+      DB_PASSWORD: "${DB_PASSWORD:?Add DB_PASSWORD to .env}"
+      DB_HOST: db
+      DB_PORT: "3306"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - itsm_network
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD:?Add MARIADB_ROOT_PASSWORD to .env}"
+      MARIADB_DATABASE: "${DB_NAME:?Add DB_NAME to .env}"
+      MARIADB_USER: "${DB_USER:?Add DB_USER to .env}"
+      MARIADB_PASSWORD: "${DB_PASSWORD:?Add DB_PASSWORD to .env}"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - itsm_network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  itsm_network:
+    name: itsm-network
+    driver: bridge
+
+volumes:
+  mariadb_data:
