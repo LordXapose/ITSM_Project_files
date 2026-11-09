@@ -1019,7 +1019,7 @@ Before committing, verify that `.env`, database credentials, local virtual envir
 | Docker container runtime | Pending verification |
 | Docker Compose | Implemented |
 | Kubernetes Deployment | Implemented |
-| Kubernetes Service | Pending |
+| Kubernetes Service | Implemented |
 | Minikube deployment | Pending |
 | Application health probes | Pending |
 | Load testing | Pending |
