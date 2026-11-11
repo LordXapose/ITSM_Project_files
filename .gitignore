@@ -9,3 +9,7 @@ staticfiles/
 media/
 .vscode/
 .idea/
+
+# Generated load-test output
+loadtest/debug-output.txt
+loadtest/error-output.txt

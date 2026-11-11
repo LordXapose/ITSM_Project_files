@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,52 +7,77 @@ metadata:
   labels:
     app.kubernetes.io/name: itsm-web
     app.kubernetes.io/part-of: itsm
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app.kubernetes.io/name: itsm-web
+
   template:
     metadata:
       labels:
         app.kubernetes.io/name: itsm-web
         app.kubernetes.io/part-of: itsm
+
     spec:
+      terminationGracePeriodSeconds: 30
+
       containers:
         - name: web
           image: itsm-app:dev
           imagePullPolicy: IfNotPresent
+
           ports:
             - name: http
               containerPort: 8000
               protocol: TCP
+
           env:
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
                   name: itsm-db-secret
                   key: DB_NAME
+
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: itsm-db-secret
                   key: DB_USER
+
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: itsm-db-secret
                   key: DB_PASSWORD
+
             - name: DB_HOST
               value: mariadb
+
             - name: DB_PORT
               value: "3306"
+
           resources:
             requests:
-              cpu: 100m
-              memory: 128Mi
+              cpu: 250m
+              memory: 256Mi
             limits:
-              cpu: 500m
-              memory: 512Mi
+              cpu: 1000m
+              memory: 1Gi
+
+          startupProbe:
+            httpGet:
+              path: /health/
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 12
+
           readinessProbe:
             httpGet:
               path: /health/
@@ -59,10 +85,10 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost
-            initialDelaySeconds: 5
             periodSeconds: 5
-            timeoutSeconds: 2
+            timeoutSeconds: 3
             failureThreshold: 3
+
           livenessProbe:
             httpGet:
               path: /health/
@@ -70,7 +96,6 @@ spec:
               httpHeaders:
                 - name: Host
                   value: localhost
-            initialDelaySeconds: 20
             periodSeconds: 10
-            timeoutSeconds: 2
+            timeoutSeconds: 5
             failureThreshold: 3

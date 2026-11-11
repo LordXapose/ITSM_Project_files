@@ -8,7 +8,11 @@ load_dotenv(BASE_DIR / ".env")
 # Security
 SECRET_KEY = 'django-insecure-temporary-development-key-change-before-deployment'
 DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'itsm-web.itsm.svc.cluster.local',
+]
 
 # Applications
 INSTALLED_APPS = [
