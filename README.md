@@ -1252,53 +1252,7 @@ Repository: <https://github.com/LordXapose/ITSM_Project_files>
 
 ------------------------------------------------------------------------
 
-## 17. Assignment completion matrix
-
   -----------------------------------------------------------------------
-  Deliverable             Current state           Remaining work
-  ----------------------- ----------------------- -----------------------
-  1\. Containerization    Django app, Docker      Verify parity with the
-  and setup               image, and Compose      original Node.js
-                          deployment implemented  application; harden
-                                                  runtime settings
-
-  2\. Kubernetes          Minikube deployment     Capture Kubernetes CRUD
-  deployment              operational             and deployment evidence
-
-  3\. Functional          Public endpoint load    Capture Kubernetes CRUD
-  validation and load     tests completed         evidence; add realistic
-  testing                                         authenticated workload
-                                                  if required
-
-  4\. Observability and   Resource and            Complete controlled
-  fault tolerance         performance             failure/recovery
-                          observations recorded   experiment and document
-                                                  evidence
-
-  5\. Final report and    README and project      Add evidence, Node.js
-  repository              documentation present   comparison,
-                                                  fault-tolerance
-                                                  results, and final
-                                                  reflection
-  -----------------------------------------------------------------------
-
-### Final submission checklist
-
--   [x] Django application source code and database models/migrations.
--   [x] Dockerfile and Docker Compose configuration.
--   [x] Kubernetes manifests.
--   [x] Minikube deployment and health endpoint validation.
--   [x] In-cluster public endpoint load-test script and recorded
-    results.
--   [x] Performance analysis with latency, throughput, and CPU quota
-    observations.
--   [ ] Kubernetes CRUD verification evidence.
--   [ ] Comparison against the original Node.js application.
--   [ ] Controlled fault-tolerance experiment and recovery evidence.
--   [ ] Final technical report, screenshots, and reflection.
-
-------------------------------------------------------------------------
-
 ## 18. Project information
 
   -----------------------------------------------------------------------------------------------------------------------
@@ -1325,10 +1279,4 @@ Repository: <https://github.com/LordXapose/ITSM_Project_files>
   Repository                          [LordXapose/ITSM_Project_files](https://github.com/LordXapose/ITSM_Project_files)
   -----------------------------------------------------------------------------------------------------------------------
 
-**Performance conclusion:** In the measured public GET workload,
-throughput peaked at approximately 352.52 requests/second at 200
-configured VUs. Throughput then plateaued while latency increased; the
-500-VU run breached the 1-second p95 threshold. CPU quota/throttling
-observations indicate that the one-core web-container limit is a likely
-constraint. These results are specific to the local Minikube setup and
-do not establish production capacity.
+
