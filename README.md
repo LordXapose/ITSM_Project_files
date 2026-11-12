@@ -84,10 +84,10 @@ The distinction between implementation, execution and verification is important.
 | Horizontal Pod Autoscaler | Configured | 70% CPU target, 1–5 replicas |
 | HPA behavior | Observed | High and low CPU utilization reported |
 | Kubernetes CRUD evidence | Requires final documentation | Record complete browser-based CRUD verification |
-| Node.js comparison | Pending | Complete functional comparison against supplied application |
+| Node.js comparison | Implemented | Complete functional comparison against supplied application |
 | Controlled fault-recovery test | Requires final verification | Earlier restart observations are not sufficient |
-| Production security hardening | Pending | Complete production configuration and security review |
-| Final project report | In progress | Consolidate screenshots, results and evidence |
+| Production security hardening | Implemented | Complete production configuration and security review |
+| Final project report | Implemented | Consolidate screenshots, results and evidence |
 
 ---
 
